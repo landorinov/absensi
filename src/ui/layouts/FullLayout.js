@@ -8,7 +8,7 @@ const FullLayout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!isAuthenticated) navigate('/auths/login')
+        if (!isAuthenticated) navigate('/auths/login')
     }, [isAuthenticated]);
 
     return (

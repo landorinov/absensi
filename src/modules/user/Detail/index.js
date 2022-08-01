@@ -25,9 +25,9 @@ function UserDetail() {
             <Container className='pt-4'>
                 <Row className="justify-content-center text-center mb-5">
                     <Col>
-                    {
-                        user.profile_pic ? <img src={user} alt="profile" className="rounded-circle" width="15%" /> : <img src={asset} alt="profile" className="rounded-circle" width="15%" />
-                    }
+                        {
+                            user.profile_pic ? <img src={user} alt="profile" className="rounded-circle" width="15%" /> : <img src={asset} alt="profile" className="rounded-circle" width="15%" />
+                        }
                     </Col>
                 </Row>
                 <Row className="justify-content-center align-items-center h-100 text-center">
