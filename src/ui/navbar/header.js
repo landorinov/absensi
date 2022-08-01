@@ -23,7 +23,7 @@ function Header() {
     function logout(){
         localStorage.removeItem('accessToken');
         dispatch(initiate());
-        navigate('/auth/login')
+        navigate('/auths/login')
     }
 
     return (
@@ -41,8 +41,11 @@ function Header() {
                         </Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
-                        <Nav className="justify-content-end flex-grow-1 pe-3" style={{ cursor: "pointer" }} onClick={() => navigate('/')}>
+                        <Nav className="justify-content-end flex-grow-1 pe-3 py-3" style={{ cursor: "pointer" }} onClick={() => { navigate('/')}}>
                             Home
+                        </Nav>
+                        <Nav className="justify-content-end flex-grow-1 pe-3" style={{ cursor: "pointer" }} onClick={() => { navigate('/users/history')}}>
+                            Absensi History
                         </Nav>
                     </Offcanvas.Body>
                 </Navbar.Offcanvas>
@@ -51,6 +54,9 @@ function Header() {
                         <img src={user} alt="profile" className="rounded-circle" width="50" />
                     </DropdownToggle>
                     <DropdownMenu>
+                        <div className="p-2 px-3" style={{cursor: 'pointer'}} onClick={() => navigate('/users/detail')}>
+                            Detail
+                        </div>
                         <div className="p-2 px-3" style={{cursor: 'pointer'}} onClick={() => logout()}>
                             Logout
                         </div>

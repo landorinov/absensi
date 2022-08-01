@@ -2,7 +2,9 @@ import { lazy } from "react";
 import Loadable from "../../ui/loader/loadable";
 
 // Pages
-const Home = Loadable(lazy(() => import('../../modules/Home')));
+const Home = Loadable(lazy(() => import('../../modules/main/Home')));
+const UserDetail = Loadable(lazy(() => import('../../modules/user/Detail')));
+const History = Loadable(lazy(() => import('../../modules/user/History')));
 
 // Layout
 const BlankLayout = Loadable(lazy(() => import('../../ui/layouts/BlankLayout')));
@@ -21,7 +23,15 @@ const appRoute = [
         ],
     },
     {
-        path: 'auth',
+        path: 'users',
+        element: <FullLayout />,
+        children: [
+            { path: 'detail', element: <UserDetail /> },
+            { path: 'history', element: <History /> }
+        ],
+    },
+    {
+        path: 'auths',
         element: <BlankLayout />,
         children: [
             { path: 'login', element: <Login /> },

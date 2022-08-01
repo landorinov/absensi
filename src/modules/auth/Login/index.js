@@ -24,11 +24,11 @@ function Login() {
     const navigate = useNavigate();
 
     function forgotPassword() {
-        navigate('/auth/forgot-password');
+        navigate('/auths/forgot-password');
     }
 
     function register() {
-        navigate('/auth/register');
+        navigate('/auths/register');
     }
 
     useEffect(() => {

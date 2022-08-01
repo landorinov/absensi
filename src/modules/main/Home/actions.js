@@ -1,4 +1,4 @@
-import { HttpGet, HttpPost } from "../../config/api/service";
+import { HttpGet, HttpPost } from "../../../config/api/service";
 import { CHANGE_REASON, CHANGE_TASK, ERROR_REASON, ERROR_SUBMIT, ERROR_TASK, GET_USER_ABSESNCES, INITIAL_STATE, MODAL_CLOSE, MODAL_OPEN, SUBMIT_DONE, SUBMIT_ONPROGRESS } from "./types";
 
 
@@ -22,7 +22,6 @@ export const initialState = () => {
             }
         });
 
-
         const userTask = await HttpGet('api/v1/absensi/list?page=0&size=4');
 
         dispatch({
@@ -43,7 +42,6 @@ export const changeReason = (value) => {
 }
 
 export const changeSelect = (value) => {
-    console.log(value);
     return {
         type: CHANGE_TASK,
         payload: value
@@ -78,7 +76,6 @@ export const changeModalClose = () => {
 }
 
 export const submitOnProgress = () => {
-    console.log('sini')
     return {
         type: SUBMIT_ONPROGRESS
     };

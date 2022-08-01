@@ -8,13 +8,13 @@ const FullLayout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!isAuthenticated) navigate('/auth/login')
+        if(!isAuthenticated) navigate('/auths/login')
     }, [isAuthenticated]);
 
     return (
         <main className='pb-5'>
             <Header />
-                <Outlet />
+            <Outlet />
         </main>
     );
 };
