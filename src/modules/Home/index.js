@@ -36,7 +36,7 @@ function Home() {
         )
     } else {
         return (
-            <div>
+            <>
                 <div className='text-center pb-5 pt-3 border border-radius-2' style={{ backgroundColor: "blue", color: "white" }}>
                     <h1 className="display-3">Hi, Selamat Datang</h1>
                     <p className="lead">Ini adalah absensi star connect 2.0, jangan lupa bekerja keras.</p>
@@ -44,6 +44,7 @@ function Home() {
                     <p>Jaga kesehatanmu ya</p>
                     <h2>{user.fullname ? user.fullname : ''}</h2>
                 </div>
+                <Container>
                 <Row className='justify-content-around my-5'>
                     <Col sm={4}>
                         <Card >
@@ -75,7 +76,7 @@ function Home() {
                     </Col>
                 </Row>
 
-                <Container>
+                <div>
                     <h4 className='pb-4'>Absensi History</h4>
                     <Row sm={2} md={3} lg={4}>
                         {
@@ -100,7 +101,7 @@ function Home() {
                             })
                         }
                     </Row>
-                </Container>
+                </div>
 
                 <CheckInOutModal
                     modalOpen={state.modalOpen}
@@ -115,7 +116,8 @@ function Home() {
                     onSubmit={() => dispatch(submit({ type: state.modalTitle, reason: state.reason, task: state.task }))}
                     onCancel={() => dispatch(changeModalClose())}
                 />
-            </div >
+            </Container >
+            </>
         )
     }
 }
