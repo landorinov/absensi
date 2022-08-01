@@ -51,7 +51,7 @@ function Header() {
                         <img src={user} alt="profile" className="rounded-circle" width="50" />
                     </DropdownToggle>
                     <DropdownMenu>
-                        <div className="p-2 px-3" onClick={() => logout()}>
+                        <div className="p-2 px-3" style={{cursor: 'pointer'}} onClick={() => logout()}>
                             Logout
                         </div>
                     </DropdownMenu>

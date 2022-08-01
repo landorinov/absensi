@@ -7,6 +7,7 @@ const initiate = {
     errorReason: "",
     errorTask: "",
     userTasks: [],
+    totalItems: 0,
     taskList: [],
     modalOpen: false,
     submitProgress: false,
@@ -20,9 +21,11 @@ const HomeReducer = (state = initiate, action) => {
                 ...action.payload,
             };
         case GET_USER_ABSESNCES:
+            console.log(action.payload)
             return {
                 ...state,
                 userTasks: action.payload.userTasks,
+                totalItems: action.payload.totalItems,
             };
         case CHANGE_REASON:
             return {

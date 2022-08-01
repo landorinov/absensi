@@ -13,7 +13,7 @@ export const initialState = () => {
             }
         });
 
-        taskList.unshift({value: "", label: "Penugasan"});
+        taskList.unshift({ value: "", label: "Penugasan" });
 
         dispatch({
             type: INITIAL_STATE,
@@ -22,15 +22,14 @@ export const initialState = () => {
             }
         });
 
-        
-        const userTask = await HttpGet('api/v1/absensi/list?page=0&size=5');
 
-        console.log(userTask);
+        const userTask = await HttpGet('api/v1/absensi/list?page=0&size=4');
 
         dispatch({
             type: GET_USER_ABSESNCES,
             payload: {
-                userTasks: userTask.data.data.content
+                userTasks: userTask.data.data.content,
+                totalItems: userTask.data.data.totalElements
             }
         });
     }
@@ -118,7 +117,6 @@ export const errorSubmit = (value) => {
 export const submit = ({ type, reason, task }) => {
     return async (dispatch) => {
         try {
-            console.log(type, task, reason)
             let reject = false;
 
             dispatch(submitOnProgress());
@@ -136,7 +134,16 @@ export const submit = ({ type, reason, task }) => {
                 }
             }
 
-            const user = await HttpPost('api/v1/absensi/save', payload);
+            await HttpPost('api/v1/absensi/save', payload);
+
+            const userTask = await HttpGet('api/v1/absensi/list?page=0&size=4');
+
+            dispatch({
+                type: GET_USER_ABSESNCES,
+                payload: {
+                    userTasks: userTask.data.data.content
+                }
+            });
 
             dispatch(submitDone());
         } catch (error) {

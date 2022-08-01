@@ -45,78 +45,86 @@ function Home() {
                     <h2>{user.fullname ? user.fullname : ''}</h2>
                 </div>
                 <Container>
-                <Row className='justify-content-around my-5'>
-                    <Col sm={4}>
-                        <Card >
-                            <Row className='justify-content-between '>
-                                <Col className='px-4 py-2 align-self-center'>
-                                    <p>Check In</p>
-                                    <p>Proses absensi kehadiran untuk mulai bekerja</p>
-                                </Col>
-                                <Button className='py-1' style={{ width: "7em" }} onClick={() => dispatch(changeModalOpen({ title: "Check In" }))}>
-                                    <Eye className='mx-2 my-3 ' size={20} />
-                                    <p>Check In</p>
-                                </Button>
-                            </Row>
-                        </Card>
-                    </Col>
-                    <Col sm={4}>
-                        <Card >
-                            <Row className='justify-content-between'>
-                                <Col className='px-4 py-2 align-self-center'>
-                                    <p>Check Out</p>
-                                    <p>Proses absensi kehadiran untuk selesai bekerja</p>
-                                </Col>
-                                <Button className='py-1' style={{ width: "7em" }} onClick={() => dispatch(changeModalOpen({ title: "Check Out" }))}>
-                                    <Eye className='mx-2 my-3' size={20} />
-                                    <p>Check Out</p>
-                                </Button>
-                            </Row>
-                        </Card>
-                    </Col>
-                </Row>
-
-                <div>
-                    <h4 className='pb-4'>Absensi History</h4>
-                    <Row sm={2} md={3} lg={4}>
-                        {
-                            state.userTasks.length > 0 && state.userTasks.map((task) => {
-                                let date = new Date(task.created_date);
-                                let stringDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
-                                let stringTime = `${date.getHours()}:${date.getMinutes()}`
-
-                                return (
-                                    <Col>
-                                        <CardBoot>
-                                            <CardBoot.Header>{task.type === 'check_in' ? "check in".toUpperCase() : "check out".toUpperCase()}</CardBoot.Header>
-                                            <CardBoot.Body>
-                                                <CardBoot.Subtitle>{task.penugasan.deskripsi}</CardBoot.Subtitle>
-                                                <CardBoot.Text className='m-0 pt-4'>Alasan: {task.alasan}</CardBoot.Text>
-                                                <CardBoot.Text className='m-0'>Tanggal: {stringDate}</CardBoot.Text>
-                                                <CardBoot.Text>Jam: {stringTime}</CardBoot.Text>
-                                            </CardBoot.Body>
-                                        </CardBoot>
+                    <Row className='justify-content-between my-5'>
+                        <Col sm={4}>
+                            <Card >
+                                <Row className='justify-content-between'>
+                                    <Col className='px-4 py-2 align-self-center'>
+                                        <p>Check In</p>
+                                        <p>Proses absensi kehadiran untuk mulai bekerja</p>
                                     </Col>
-                                )
-                            })
-                        }
+                                    <Button className='py-1' style={{ width: "7em" }} onClick={() => dispatch(changeModalOpen({ title: "Check In" }))}>
+                                        <Eye className='mx-2 my-3 ' size={20} />
+                                        <p>Check In</p>
+                                    </Button>
+                                </Row>
+                            </Card>
+                        </Col>
+                        <Col sm={4}>
+                            <Card >
+                                <Row className='justify-content-between'>
+                                    <Col className='px-4 py-2 align-self-center'>
+                                        <p>Check Out</p>
+                                        <p>Proses absensi kehadiran untuk selesai bekerja</p>
+                                    </Col>
+                                    <Button className='py-1' style={{ width: "7em" }} onClick={() => dispatch(changeModalOpen({ title: "Check Out" }))}>
+                                        <Eye className='mx-2 my-3' size={20} />
+                                        <p>Check Out</p>
+                                    </Button>
+                                </Row>
+                            </Card>
+                        </Col>
                     </Row>
-                </div>
 
-                <CheckInOutModal
-                    modalOpen={state.modalOpen}
-                    headerTitle={state.modalTitle}
-                    submitProgress={state.submitProgress}
-                    valueReason={state.reason}
-                    optionList={state.taskList}
-                    onChangeSelect={(e) => { dispatch(changeSelect(e.target.value)) }}
-                    onChangeReason={(e) => { dispatch(changeReason(e.target.value)) }}
-                    errorMessageSelect={state.errorMessageSelect}
-                    errorMessageReason={state.errorReason}
-                    onSubmit={() => dispatch(submit({ type: state.modalTitle, reason: state.reason, task: state.task }))}
-                    onCancel={() => dispatch(changeModalClose())}
-                />
-            </Container >
+                    <div>
+                        <Row className='justify-content-between'>
+                            <Col>
+                                <h4 className='pb-4'>Absensi History</h4>
+                            </Col>
+                            {
+                                state.totalItems > 4 ? <Col><p style={{textAlign: 'right', cursor: "pointer"}}>View More</p></Col> : null
+                            }
+                        </Row>
+
+                        <Row sm={2} md={3} lg={4}>
+                            {
+                                state.userTasks.length > 0 && state.userTasks.map((task) => {
+                                    let date = new Date(task.created_date);
+                                    let stringDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+                                    let stringTime = `${date.getHours()}:${date.getMinutes()}`
+
+                                    return (
+                                        <Col>
+                                            <CardBoot>
+                                                <CardBoot.Header>{task.type === 'check_in' ? "check in".toUpperCase() : "check out".toUpperCase()}</CardBoot.Header>
+                                                <CardBoot.Body>
+                                                    <CardBoot.Subtitle>{task.penugasan.deskripsi}</CardBoot.Subtitle>
+                                                    <CardBoot.Text className='m-0 pt-4'>Alasan: {task.alasan}</CardBoot.Text>
+                                                    <CardBoot.Text className='m-0'>Tanggal: {stringDate}</CardBoot.Text>
+                                                    <CardBoot.Text>Jam: {stringTime}</CardBoot.Text>
+                                                </CardBoot.Body>
+                                            </CardBoot>
+                                        </Col>
+                                    )
+                                })
+                            }
+                        </Row>
+                    </div>
+
+                    <CheckInOutModal
+                        modalOpen={state.modalOpen}
+                        headerTitle={state.modalTitle}
+                        submitProgress={state.submitProgress}
+                        valueReason={state.reason}
+                        optionList={state.taskList}
+                        onChangeSelect={(e) => { dispatch(changeSelect(e.target.value)) }}
+                        onChangeReason={(e) => { dispatch(changeReason(e.target.value)) }}
+                        errorMessageSelect={state.errorMessageSelect}
+                        errorMessageReason={state.errorReason}
+                        onSubmit={() => dispatch(submit({ type: state.modalTitle, reason: state.reason, task: state.task }))}
+                        onCancel={() => dispatch(changeModalClose())}
+                    />
+                </Container >
             </>
         )
     }
