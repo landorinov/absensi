@@ -1,24 +1,24 @@
-import logo from './logo.svg';
+import React, { Suspense, useEffect } from 'react';
+import { useRoutes } from 'react-router-dom';
+import Themeroutes from './config/routes';
+import Loader from './ui/loader/loader';
 import './App.css';
+import { useDispatch } from 'react-redux';
+import { initiate } from './config/store/global/actions';
 
 function App() {
+  const routing = useRoutes(Themeroutes);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initiate())
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense fallback={<Loader />}>
+      <div>
+        {routing}
+      </div>
+    </Suspense>
   );
 }
 

@@ -1,0 +1,21 @@
+{
+    "root": true,
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".mdx"
+          ]
+        }
+      }
+    },
+    "rules": {
+      "react-hooks/exhaustive-deps": "off"
+    }
+  }
