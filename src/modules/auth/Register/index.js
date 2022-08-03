@@ -27,7 +27,7 @@ function Register() {
     const navigate = useNavigate();
 
     function login() {
-        navigate('/auth/login');
+        navigate('/auths/login');
     }
 
     useEffect(() => {
