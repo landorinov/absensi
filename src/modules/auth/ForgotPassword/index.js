@@ -11,8 +11,8 @@ import {
     Input
 } from 'reactstrap';
 
-function Login() {
-    const state = useSelector(state => state.LoginReducer);
+function ForgotPassword() {
+    const state = useSelector(state => state.ForgotReducer);
 
     return (
         <div>
@@ -38,4 +38,4 @@ function Login() {
     )
 }
 
-export default Login;
+export default ForgotPassword;

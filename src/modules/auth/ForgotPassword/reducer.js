@@ -1,20 +1,20 @@
 import { INITIAL_STATE } from "./types";
 
 const initiate = {
-    username: "",
-    password: "",
-    errorUsername: "",
-    errorPassword: "",
-    showForgot: false,
-    forgotEmail: "",
-    errorForgotEmail: "",
+    email: "",
     otp: "",
+    password: "",
     confirmPassword: "",
-    isSubmitedLogin: false,
+    errorEmail: "",
+    errorOtp: "",
+    errorPassword: "",
+    errorConfirm: "",
     isSubmitedForgot: false,
+    submitSuccess: false,
+    step: 0,
 }
 
-const LoginReducer = (state = initiate, action) => {
+const ForgotReducer = (state = initiate, action) => {
     switch (action.type) {
         case INITIAL_STATE:
             return {
@@ -25,4 +25,4 @@ const LoginReducer = (state = initiate, action) => {
     }
 }
 
-export default LoginReducer;
+export default ForgotReducer;
