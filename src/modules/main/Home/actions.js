@@ -1,9 +1,12 @@
 import { HttpGet, HttpPost } from "../../../config/api/service";
+import { initiate } from "../../../config/store/global/actions";
 import { CHANGE_REASON, CHANGE_TASK, ERROR_REASON, ERROR_SUBMIT, ERROR_TASK, GET_USER_ABSESNCES, INITIAL_STATE, MODAL_CLOSE, MODAL_OPEN, SUBMIT_DONE, SUBMIT_ONPROGRESS } from "./types";
 
 
 export const initialState = () => {
     return async (dispatch) => {
+        dispatch(initiate());
+
         const tasks = await HttpGet('api/v1/penugasan/list?page=0&size=10');
 
         let taskList = tasks.data.data.content.map(task => {

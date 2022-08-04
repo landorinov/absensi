@@ -9,8 +9,6 @@ export const initiate = () => {
             if (token) {
                 let user = await HttpGet('api/user/detail-profile');
 
-                console.log(user.data.data);
-
                 dispatch({
                     type: INITIAL_STATE,
                     payload: {

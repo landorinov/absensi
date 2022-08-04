@@ -13,6 +13,7 @@ const HistoryReducer = (state = initiate, action) => {
             return {
                 ...state,
                 ...action.payload,
+                page: 0,
             };
         case LOAD_MORE:
             action.payload.moreTasks.map((task) => {
