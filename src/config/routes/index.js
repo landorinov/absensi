@@ -13,6 +13,7 @@ const FullLayout = Loadable(lazy(() => import('../../ui/layouts/FullLayout')));
 // Auth Component
 const Login = Loadable(lazy(() => import('../../modules/auth/Login')))
 const Register = Loadable(lazy(() => import('../../modules/auth/Register')))
+const ForgotPassword = Loadable(lazy(() => import('../../modules/auth/ForgotPassword')))
 
 const appRoute = [
     {
@@ -36,6 +37,7 @@ const appRoute = [
         children: [
             { path: 'login', element: <Login /> },
             { path: 'register', element: <Register /> },
+            { path: 'forgot-password', element: <ForgotPassword /> },
         ],
     }
 ]

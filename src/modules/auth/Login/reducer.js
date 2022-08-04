@@ -12,6 +12,10 @@ const initiate = {
 
 const LoginReducer = (state = initiate, action) => {
     switch (action.type) {
+        case INITIAL_STATE: 
+            state = initiate;
+            
+            return state;
         case CHANGE_USERNAME:
             return {
                 ...state,

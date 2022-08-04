@@ -138,7 +138,8 @@ export const submit = ({ type, reason, task }) => {
             dispatch({
                 type: GET_USER_ABSESNCES,
                 payload: {
-                    userTasks: userTask.data.data.content
+                    userTasks: userTask.data.data.content,
+                    totalItems: userTask.data.data.totalElements
                 }
             });
 

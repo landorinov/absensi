@@ -40,10 +40,12 @@ function Register() {
             <Container className="vh-100">
                 <Row className="justify-content-center align-items-center h-100">
                     <Col sm="12" md="10">
-                        <h2 className='text-center'>Register Absensi <br /> StarConnect 2.0</h2>
+                        <h2 className='text-center'>Register <br />Absensi StarCon</h2>
+                        {
+                            state.isSubmited ? <Loading show={state.isSubmited} /> : null
+                        }
                         <Card className='mt-4'>
                             <CardBody className="p-4 m-1">
-                                <Form>
                                     <Row>
                                         <Col>
                                             <GeneralField title="Full Name" value={state.name} onChange={(e) => dispatch(changeName(e.target.value))} errorMessage={state.errorName} type="text" />
@@ -133,8 +135,6 @@ function Register() {
                                             Already registered ?
                                         </p>
                                     </FormGroup>
-                                </Form>
-
                             </CardBody>
                         </Card>
                     </Col>

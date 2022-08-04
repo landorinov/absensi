@@ -15,9 +15,13 @@ const HistoryReducer = (state = initiate, action) => {
                 ...action.payload,
             };
         case LOAD_MORE:
+            action.payload.moreTasks.map((task) => {
+                state.userTasks.push(task);
+            });
+
             return {
                 ...state,
-                page: state.page++
+                page: action.payload.page
             };
         default:
             return state;

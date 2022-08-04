@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux'
-import { Col, Container, Row } from 'reactstrap';
-import { initialState } from './actions';
+import { Button, Col, Container, Row } from 'reactstrap';
+import { initialState, loadMore } from './actions';
 
 function History() {
     const { isAuthenticated } = useSelector(state => state.global);
@@ -34,7 +34,7 @@ function History() {
                             let stringTime = `${date.getHours()}:${date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`}`
 
                             return (
-                                <Col key={task.id}>
+                                <Col key={task.id} className="my-3">
                                     <Card>
                                         <Card.Header>{task.type === 'check_in' ? "check in".toUpperCase() : "check out".toUpperCase()}</Card.Header>
                                         <Card.Body>
@@ -76,6 +76,17 @@ function History() {
                         })
                     }
                 </Row>
+                {
+                    state.userTasks.length > 0 && state.userTasks.length < state.totalItems ?
+                    <Button
+                        onClick={() => dispatch(loadMore(state.page))}
+                        color="outline-secondary"
+                        className="me-2 mt-2 w-100"
+                    >
+                        Load More
+                    </Button>
+                    : null
+                }
             </Container>
         )
     }

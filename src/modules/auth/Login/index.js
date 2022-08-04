@@ -16,6 +16,7 @@ import {
 import { Eye, EyeOff } from "react-feather";
 import { changePassword, changeShowPassword, changeUsername, initialState, submit } from './actions';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../../ui/modals/Loading';
 
 function Login() {
     const state = useSelector(state => state.LoginReducer);
@@ -36,12 +37,19 @@ function Login() {
         else dispatch(initialState());
     }, [isAuthenticated]);
 
+    useEffect(() => {
+        dispatch(initialState());
+    }, []);
+
     return (
         <div>
             <Container className="vh-100">
                 <Row className="justify-content-center align-items-center h-100">
                     <Col md="6">
-                        <h2 className='text-center'>Absensi StarConnect 2.0</h2>
+                        <h2 className='text-center'>Absensi StarCon</h2>
+                        {
+                            state.isSubmited ? <Loading show={state.isSubmited} /> : null
+                        }
                         <Card className='mt-4'>
                             <CardBody className="p-4 m-1">
                                 <FormGroup>
@@ -77,7 +85,6 @@ function Login() {
                                         onClick={() => dispatch(submit({ email: state.username, password: state.password }))}
                                         color="secondary"
                                         className="me-2 mt-2 w-100"
-                                        disabled={state.isSubmited}
                                     >
                                         Login
                                     </Button>

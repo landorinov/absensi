@@ -169,7 +169,9 @@ export const submit = ({ name, email, phoneNumber, password, confirmPassword, ge
 
             const user = await HttpPost('api/register', payload);
 
-            dispatch(errorSubmit());
+            dispatch({
+                type: SUBMIT_DONE
+            });
 
             dispatch(profileSave(user.data.data.data.access_token))
 
