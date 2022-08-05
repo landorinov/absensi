@@ -1,4 +1,4 @@
-import { CHANGE_PASSWORD, CHANGE_SHOW_PASSWORD, CHANGE_USERNAME, ERROR_SUBMIT, INITIAL_STATE, SUBMIT_DONE, SUBMIT_ONPROGRESS, UPDATE_ERROR_PASSWORD, UPDATE_ERROR_USERNAME } from "./types";
+import { CHANGE_PASSWORD, CHANGE_SHOW_PASSWORD, CHANGE_USERNAME, CLOSE_ERROR, ERROR_SUBMIT, INITIAL_STATE, RESET_ERROR, SUBMIT_DONE, SUBMIT_ONPROGRESS, UPDATE_ERROR_PASSWORD, UPDATE_ERROR_USERNAME } from "./types";
 
 const initiate = {
     username: "",
@@ -6,6 +6,7 @@ const initiate = {
     errorUsername: "",
     errorPassword: "",
     errorSubmit: "",
+    errorShow: false,
     isSubmited: false,
     showPassword: false,
 }
@@ -14,7 +15,7 @@ const LoginReducer = (state = initiate, action) => {
     switch (action.type) {
         case INITIAL_STATE: 
             state = initiate;
-            
+
             return state;
         case CHANGE_USERNAME:
             return {
@@ -45,7 +46,16 @@ const LoginReducer = (state = initiate, action) => {
             return {
                 ...state,
                 isSubmited: false,
+                errorShow: true,
                 errorSubmit: action.payload,
+            }
+        case RESET_ERROR:
+            return {
+                ...state,
+                errorShow: false,
+                errorPassword: '',
+                errorUsername: '',
+                errorSubmit: '',
             }
         case SUBMIT_ONPROGRESS:
             return {

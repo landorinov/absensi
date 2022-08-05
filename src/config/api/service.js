@@ -7,14 +7,25 @@ let apiUrl = 'https://project-testv01.herokuapp.com/';
 const HttpPost = async (url, data) => {
     const accessToken = localStorage.getItem('accessToken');
 
-    return httpClient
-        .post(apiUrl + url, data, {
+    return httpClient.post(apiUrl + url, data, {
             headers: {
                 Authorization: accessToken ? `Bearer ${accessToken}` : null,
             },
         })
         .then((res) => {
-            return res;
+            switch (Number(res.data.status)) {
+              case 200:
+                  return res.data.data;
+              case 404:
+                  throw({
+                    status: Number(res.data.status),
+                    message: res.data.message
+                  });
+              default:
+                break;
+            }
+            console.log('sini');
+            console.log(res.data);
         })
         .catch((error) => {
             console.log(error);

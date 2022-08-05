@@ -163,7 +163,16 @@ const RegisterReducer = (state = initiate, action) => {
         case SUBMIT_ONPROGRESS:
             return {
                 ...state,
-                isSubmited: true
+                isSubmited: true,
+                errorName: "",
+                errorPassword: "",
+                errorConfirmPassword: "",
+                errorPhoneNumber: "",
+                errorGender: "",
+                errorDomicile: "",
+                errorInterest: "",
+                errorEmail: "",
+                errorSubmit: "",
             };
         case ERROR_SUBMIT:
             return {

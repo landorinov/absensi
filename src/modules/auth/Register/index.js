@@ -15,10 +15,12 @@ import {
     Form
 } from 'reactstrap';
 import { Eye, EyeOff } from "react-feather";
-import { changeConfirmPassword, changeDomicile, changeEmail, changeGender, changeInterest, changeName, changePassword, changePhoneNumber, changeShowConfirmPassword, changeShowPassword, initialState, submit } from './actions';
+import { changeConfirmPassword, changeDomicile, changeEmail, changeGender, changeInterest, changeName, changePassword, changePhoneNumber, changeShowConfirmPassword, changeShowPassword, clearErrorSubmit, initialState, submit } from './actions';
 import { useNavigate } from 'react-router-dom';
 import SelectField from '../../../ui/fields/SelectField';
 import GeneralField from '../../../ui/fields/GeneralField';
+import CustomAlert from '../../../ui/alerts/AlertCustom';
+import Loading from '../../../ui/modals/Loading';
 
 function Register() {
     const state = useSelector(state => state.RegisterReducer);
@@ -46,6 +48,9 @@ function Register() {
                         }
                         <Card className='mt-4'>
                             <CardBody className="p-4 m-1">
+                                {
+                                    <CustomAlert message={state.errorSubmit} toggle={() => dispatch(clearErrorSubmit())} open={state.errorSubmit ? true : false} />
+                                }
                                     <Row>
                                         <Col>
                                             <GeneralField title="Full Name" value={state.name} onChange={(e) => dispatch(changeName(e.target.value))} errorMessage={state.errorName} type="text" />
@@ -77,7 +82,7 @@ function Register() {
                                                     </Button>
                                                 </InputGroup>
                                                 {
-                                                    state.errorPassword ? <FormFeedback className='font-weight-light text-danger pt-2'>{state.errorPassword}</FormFeedback> : null
+                                                    state.errorPassword ? <p className='font-weight-light text-danger pt-2'>{state.errorPassword}</p> : null
                                                 }
                                             </FormGroup></Col>
                                         <Col>
@@ -94,7 +99,7 @@ function Register() {
                                                     </Button>
                                                 </InputGroup>
                                                 {
-                                                    state.errorConfirmPassword ? <FormFeedback className='font-weight-light text-danger pt-2'>{state.errorConfirmPassword}</FormFeedback> : null
+                                                    state.errorConfirmPassword ? <p className='font-weight-light text-danger pt-2'>{state.errorConfirmPassword}</p> : null
                                                 }
                                             </FormGroup></Col>
                                     </Row>

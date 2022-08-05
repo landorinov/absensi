@@ -11,7 +11,7 @@ import {
     Card as CardBoot,
 } from 'react-bootstrap';
 import {
-    Eye
+    LogIn, LogOut
 } from 'react-feather';
 import { useSelector, useDispatch } from 'react-redux'
 import CheckInOutModal from '../../../ui/modals/CheckInOut';
@@ -56,7 +56,7 @@ function Home() {
                                         <p>Proses absensi kehadiran untuk mulai bekerja</p>
                                     </Col>
                                     <Button className='py-1' style={{ width: "7em" }} onClick={() => dispatch(changeModalOpen({ title: "Check In" }))}>
-                                        <Eye className='mx-2 my-3 ' size={20} />
+                                        <LogIn className='mx-2 my-3 ' size={20} />
                                         <p>Check In</p>
                                     </Button>
                                 </Row>
@@ -70,7 +70,7 @@ function Home() {
                                         <p>Proses absensi kehadiran untuk selesai bekerja</p>
                                     </Col>
                                     <Button className='py-1' style={{ width: "7em" }} onClick={() => dispatch(changeModalOpen({ title: "Check Out" }))}>
-                                        <Eye className='mx-2 my-3' size={20} />
+                                        <LogOut className='mx-2 my-3' size={20} />
                                         <p>Check Out</p>
                                     </Button>
                                 </Row>

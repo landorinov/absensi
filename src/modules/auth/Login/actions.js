@@ -1,6 +1,6 @@
 import { HttpPost } from "../../../config/api/service";
 import {  profileSave } from "../../../config/store/global/actions";
-import { CHANGE_PASSWORD, CHANGE_SHOW_PASSWORD, CHANGE_USERNAME, ERROR_SUBMIT, INITIAL_STATE, SUBMIT_DONE, SUBMIT_ONPROGRESS, UPDATE_ERROR_PASSWORD, UPDATE_ERROR_USERNAME } from "./types";
+import { CHANGE_PASSWORD, CHANGE_SHOW_PASSWORD, CHANGE_USERNAME, CLOSE_ERROR, ERROR_SUBMIT, INITIAL_STATE, RESET_ERROR, SUBMIT_DONE, SUBMIT_ONPROGRESS, UPDATE_ERROR_PASSWORD, UPDATE_ERROR_USERNAME } from "./types";
 
 export const initialState = () => {
     return async (dispatch) => {
@@ -42,30 +42,42 @@ export const updateError = (value, section) => {
             type: UPDATE_ERROR_USERNAME,
             payload: value
         }
+    } else if (section === 'password'){
+        return {
+            type: UPDATE_ERROR_PASSWORD,
+            payload: value
+        }
     }
 
+}
+
+export const errorSubmit = (message) => {
     return {
-        type: UPDATE_ERROR_PASSWORD,
-        payload: value
+        type: ERROR_SUBMIT,
+        payload: message || "Oops error nih"
     }
 }
 
-export const errorSubmit = () => {
+export const resetError = () => {
     return {
-        type: ERROR_SUBMIT,
-        payload: "Oops error nih"
+        type: RESET_ERROR,
     }
 }
 
 export const submit = ({ email, password }) => {
     return async (dispatch) => {
         try {
-            dispatch(submitOnProgress());
+            let reject = false;
 
-            if (!email) dispatch(updateError('Email required', 'username'));
-            if (!password) dispatch(updateError('Password required', 'password'));
+            dispatch(resetError());
 
-            if (!email || !password) { dispatch(errorSubmit()); return; }
+            if (!email) {dispatch(updateError('Email required', 'username')); reject = true};
+            if (email && !email.includes('@')) {dispatch(updateError('Must in email format', 'username')); reject = true};
+            if (!password) {dispatch(updateError('Password required', 'password')); reject = true};
+
+            if(reject) return;
+
+            dispatch(submitOnProgress())
 
             const user = await HttpPost('api/login-user', { email, password });
 
@@ -73,9 +85,9 @@ export const submit = ({ email, password }) => {
                 type: SUBMIT_DONE
             });
 
-            dispatch(profileSave(user.data.data.access_token))
+            dispatch(profileSave(user.access_token))
         } catch (error) {
-            dispatch(errorSubmit());
+            dispatch(errorSubmit(error.message));
         }
     }
 }

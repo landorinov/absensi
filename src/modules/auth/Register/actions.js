@@ -131,6 +131,13 @@ export const updateError = (value, section) => {
     }
 }
 
+export const clearErrorSubmit = () => {
+    return {
+        type: ERROR_SUBMIT,
+        payload: ""
+    }
+}
+
 export const errorSubmit = (value) => {
     return {
         type: ERROR_SUBMIT,
@@ -142,20 +149,21 @@ export const submit = ({ name, email, phoneNumber, password, confirmPassword, ge
     return async (dispatch) => {
         try {
             let reject = false;
-
-            dispatch(submitOnProgress());
-
+            
             if (!email) { reject = true; dispatch(updateError('Email required', 'email')) };
+            if (email && !email.includes('@')) { reject = true; dispatch(updateError('Must be email format', 'email')) };
             if (!name) { reject = true; dispatch(updateError('Name required', 'name')) };
             if (!password) { reject = true; dispatch(updateError('Password required', 'password')) };
             if (!confirmPassword) { reject = true; dispatch(updateError('Confirm Password required', 'confirmPassword')) };
-            if (password != confirmPassword) { reject = true; dispatch(updateError('Password and Confirm  required', 'confirmPassword')) };
+            if (password != confirmPassword) { reject = true; dispatch(updateError('Password and Confirm not same', 'confirmPassword')) };
             if (!gender) { reject = true; dispatch(updateError('Gender required', 'gender')) };
             if (!phoneNumber) { reject = true; dispatch(updateError('Phone Number required', 'phoneNumber')) };
             if (!interest) { reject = true; dispatch(updateError('Interest required', 'interest')) };
             if (!domicile) { reject = true; dispatch(updateError('Domicile required', 'domicile')) };
-
-            if (reject) { dispatch(errorSubmit()); return; };
+            
+            if (reject) { return; };
+            
+            dispatch(submitOnProgress());
 
             let payload = {
                 email,
@@ -173,10 +181,9 @@ export const submit = ({ name, email, phoneNumber, password, confirmPassword, ge
                 type: SUBMIT_DONE
             });
 
-            dispatch(profileSave(user.data.data.data.access_token))
+            dispatch(profileSave(user.data.access_token))
 
         } catch (error) {
-            console.log(error.message);
             dispatch(errorSubmit(error.message));
         }
     }

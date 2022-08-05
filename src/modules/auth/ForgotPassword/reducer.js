@@ -1,4 +1,4 @@
-import { CHANGE_CONFIRM, CHANGE_EMAIL, CHANGE_OTP, CHANGE_OTP_SUCCESS, CHANGE_PASSWORD, ERROR_CONFIRM_PASSWORD, ERROR_EMAIL, INITIAL_STATE, RESEND_OTP, SUBMIT_BACK, SUBMIT_EMAIL, SUBMIT_ONPROGRESS, SUBMIT_OTP, SUBMIT_PASSWORD } from "./types";
+import { CHANGE_CONFIRM, CHANGE_EMAIL, CHANGE_OTP, CHANGE_OTP_SUCCESS, CHANGE_PASSWORD, ERROR_CONFIRM_PASSWORD, ERROR_EMAIL, ERROR_OTP, INITIAL_STATE, RESEND_OTP, SUBMIT_BACK, SUBMIT_EMAIL, SUBMIT_ONPROGRESS, SUBMIT_OTP, SUBMIT_PASSWORD } from "./types";
 
 const initiate = {
     email: "",
@@ -19,7 +19,7 @@ const ForgotReducer = (state = initiate, action) => {
     switch (action.type) {
         case INITIAL_STATE:
             state = initiate;
-            
+
             return state;
         case CHANGE_EMAIL:
             return {
@@ -29,7 +29,8 @@ const ForgotReducer = (state = initiate, action) => {
         case CHANGE_OTP:
             return {
                 ...state,
-                otp: action.payload
+                otp: action.payload,
+                errorOtp: ""
             }
         case CHANGE_PASSWORD:
             return {
@@ -49,8 +50,15 @@ const ForgotReducer = (state = initiate, action) => {
         case ERROR_EMAIL:
             return {
                 ...state,
+                isSubmitedForgot: false,
                 errorEmail: action.payload
             }
+        case ERROR_OTP:
+            return {
+                ...state,
+                isSubmitedForgot: false,
+                errorOtp: action.payload
+            }    
         case ERROR_CONFIRM_PASSWORD:
             return {
                 ...state,

@@ -14,9 +14,10 @@ import {
     Button
 } from 'reactstrap';
 import { Eye, EyeOff } from "react-feather";
-import { changePassword, changeShowPassword, changeUsername, initialState, submit } from './actions';
+import { changePassword, changeShowPassword, changeUsername, initialState, resetError, submit } from './actions';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../../ui/modals/Loading';
+import CustomAlert from '../../../ui/alerts/AlertCustom';
 
 function Login() {
     const state = useSelector(state => state.LoginReducer);
@@ -52,6 +53,7 @@ function Login() {
                         }
                         <Card className='mt-4'>
                             <CardBody className="p-4 m-1">
+                                <CustomAlert open={state.errorShow} toggle={() => dispatch(resetError())} title={state.errorTitle} message={state.errorSubmit} />
                                 <FormGroup>
                                     <Label>Email</Label>
                                     <Input value={state.username} className="border-secondary" type="email" style={{ paddingTop: "0.7em", paddingBottom: "0.7em" }} invalid={state.errorUsername ? true : false} onChange={(e) => dispatch(changeUsername(e.target.value))} />
@@ -72,7 +74,7 @@ function Login() {
                                         </Button>
                                     </InputGroup>
                                     {
-                                        state.errorPassword ? <FormFeedback className='font-weight-light text-danger pt-2'>{state.errorPassword}</FormFeedback> : null
+                                        state.errorPassword ? <p className='font-weight-light text-danger pt-2'>{state.errorPassword}</p> : null
                                     }
                                 </FormGroup>
                                 <FormGroup>

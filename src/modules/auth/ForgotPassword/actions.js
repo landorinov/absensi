@@ -1,5 +1,5 @@
 import { HttpPost } from "../../../config/api/service";
-import { CHANGE_CONFIRM, CHANGE_EMAIL, CHANGE_OTP, CHANGE_OTP_SUCCESS, CHANGE_PASSWORD, ERROR_CONFIRM_PASSWORD, ERROR_EMAIL, INITIAL_STATE, RESEND_OTP, SUBMIT_BACK, SUBMIT_EMAIL, SUBMIT_ONPROGRESS, SUBMIT_OTP, SUBMIT_PASSWORD } from "./types";
+import { CHANGE_CONFIRM, CHANGE_EMAIL, CHANGE_OTP, CHANGE_OTP_SUCCESS, CHANGE_PASSWORD, ERROR_CONFIRM_PASSWORD, ERROR_EMAIL, ERROR_OTP, INITIAL_STATE, RESEND_OTP, SUBMIT_BACK, SUBMIT_EMAIL, SUBMIT_ONPROGRESS, SUBMIT_OTP, SUBMIT_PASSWORD } from "./types";
 
 export const initialState = () => {
     return async (dispatch) => {
@@ -21,7 +21,7 @@ export const changeEmail = (value) => {
 export const changeOtp = ({email, value}) => {
     return async (dispatch) => {
         try {
-            if(!Number(value)){
+            if(!Number(value) && (Number(value) != 0)){
                 return;
             }
 
@@ -40,7 +40,10 @@ export const changeOtp = ({email, value}) => {
                 });
             }
         } catch (error) {
-            console.log(error)
+            dispatch({
+                type: ERROR_OTP,
+                payload: error.message
+            })
         }
     }
 }
@@ -85,13 +88,18 @@ export const submitEmail = (email) => {
                 return;
             }
 
+            if(email && !email.includes('@')) {
+                dispatch({ type: ERROR_EMAIL, payload: "Must in email format!"});
+                return;
+            }
+
             await HttpPost('api/forget-password/send', {email});
 
             dispatch({
                 type: SUBMIT_EMAIL
             })
         } catch (error) {
-            console.log(error)
+            dispatch({ type: ERROR_EMAIL, payload: error.message});
         }
     }
 }
@@ -101,7 +109,7 @@ export const submitPassword = ({email, password, confirm}) => {
         try {
             dispatch(submitOnProgress());
 
-            if(password !== confirm) {
+            if((password.length != confirm.length) && (password != confirm)) {
                 dispatch({ type: ERROR_CONFIRM_PASSWORD, payload: "Password dan Confirm Password not same"});
                 return;
             } 
@@ -112,7 +120,8 @@ export const submitPassword = ({email, password, confirm}) => {
                 type: SUBMIT_PASSWORD
             })
         } catch (error) {
-            console.log(error)
+            dispatch({ type: ERROR_CONFIRM_PASSWORD, payload: error.message });
+                
         }
     }
 }
@@ -127,12 +136,15 @@ export const resendOtp = (email) => {
                 type: RESEND_OTP
             })
         } catch (error) {
-            console.log(error)
+            dispatch({
+                type: ERROR_OTP,
+                payload: error.message
+            })
         }
     }
 }
 
-export const changeOtpSuccess = (email) => {
+export const changeOtpSuccess = () => {
     return async (dispatch) => {
             dispatch({
                 type: CHANGE_OTP_SUCCESS

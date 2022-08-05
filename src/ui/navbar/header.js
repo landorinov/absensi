@@ -27,7 +27,7 @@ function Header() {
     }
 
     return (
-        <Navbar bg="light" expand={isExpanded} className="mb-3">
+        <Navbar bg="light" expand={isExpanded} className="pb-3">
             <Container>
                 <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${isExpanded}`} />
                 <Navbar.Offcanvas
