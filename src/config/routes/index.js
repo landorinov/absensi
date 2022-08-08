@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import { Navigate } from "react-router-dom";
 import Loadable from "../../ui/loader/loadable";
 
 // Pages
@@ -38,8 +39,12 @@ const appRoute = [
             { path: 'login', element: <Login /> },
             { path: 'register', element: <Register /> },
             { path: 'forgot-password', element: <ForgotPassword /> },
+            
         ],
-    }
+    },
+    { 
+        path: '*', element: <Navigate to="/auths/login" /> 
+    },
 ]
 
 export default appRoute;
