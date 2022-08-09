@@ -87,57 +87,64 @@ function Home() {
                                 state.totalItems > 4 ? <Col><p style={{textAlign: 'right', cursor: "pointer"}} onClick={() => navigate('/users/history')}>View More</p></Col> : null
                             }
                         </Row>
+                        {
+                            state.userTaskLoading ? 
+                            <Container className="vh-100">
+                                <Row className="justify-content-center align-items-center h-100">
+                                    <Spinner color="primary" />
+                                </Row>
+                            </Container> :
+                            <Row sm={2} md={3} lg={4}>
+                                {
+                                    state.userTasks.length > 0 && state.userTasks.map((task) => {
+                                        let date = new Date(task.created_date);
+                                        let stringDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+                                        let stringTime = `${date.getHours()}:${date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`}`
 
-                        <Row sm={2} md={3} lg={4}>
-                            {
-                                state.userTasks.length > 0 && state.userTasks.map((task) => {
-                                    let date = new Date(task.created_date);
-                                    let stringDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
-                                    let stringTime = `${date.getHours()}:${date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`}`
-
-                                    return (
-                                        <Col key={task.id}>
-                                            <CardBoot>
-                                                <CardBoot.Header>{task.type === 'check_in' ? "check in".toUpperCase() : "check out".toUpperCase()}</CardBoot.Header>
-                                                <CardBoot.Body>
-                                                    <CardBoot.Subtitle>{task.penugasan.deskripsi}</CardBoot.Subtitle>
-                                                    <CardBoot.Text className='m-0 pt-4'>
-                                                        <Row className='mb-2'>
-                                                            <Col sm={4}>
-                                                                Alasan: 
-                                                            </Col>
-                                                            <Col>
-                                                                {task.alasan}
-                                                            </Col>
-                                                        </Row>
-                                                    </CardBoot.Text>
-                                                    <CardBoot.Text className='m-0'>
-                                                        <Row className='mb-2'>
-                                                            <Col sm={4}>
-                                                                Tanggal:
-                                                            </Col>
-                                                            <Col>
-                                                                {stringDate}
-                                                            </Col>
-                                                        </Row>
-                                                    </CardBoot.Text>
-                                                    <CardBoot.Text className='m-0'>
-                                                        <Row>
-                                                            <Col sm={4}>
-                                                                Jam:
-                                                            </Col>
-                                                            <Col>
-                                                                {stringTime}
-                                                            </Col>
-                                                        </Row>
-                                                    </CardBoot.Text>
-                                                </CardBoot.Body>
-                                            </CardBoot>
-                                        </Col>
-                                    )
-                                })
-                            }
-                        </Row>
+                                        return (
+                                            <Col key={task.id}>
+                                                <CardBoot>
+                                                    <CardBoot.Header>{task.type === 'check_in' ? "check in".toUpperCase() : "check out".toUpperCase()}</CardBoot.Header>
+                                                    <CardBoot.Body>
+                                                        <CardBoot.Subtitle>{task.penugasan.deskripsi}</CardBoot.Subtitle>
+                                                        <CardBoot.Text className='m-0 pt-4'>
+                                                            <Row className='mb-2'>
+                                                                <Col sm={4}>
+                                                                    Alasan: 
+                                                                </Col>
+                                                                <Col>
+                                                                    {task.alasan}
+                                                                </Col>
+                                                            </Row>
+                                                        </CardBoot.Text>
+                                                        <CardBoot.Text className='m-0'>
+                                                            <Row className='mb-2'>
+                                                                <Col sm={4}>
+                                                                    Tanggal:
+                                                                </Col>
+                                                                <Col>
+                                                                    {stringDate}
+                                                                </Col>
+                                                            </Row>
+                                                        </CardBoot.Text>
+                                                        <CardBoot.Text className='m-0'>
+                                                            <Row>
+                                                                <Col sm={4}>
+                                                                    Jam:
+                                                                </Col>
+                                                                <Col>
+                                                                    {stringTime}
+                                                                </Col>
+                                                            </Row>
+                                                        </CardBoot.Text>
+                                                    </CardBoot.Body>
+                                                </CardBoot>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                            </Row>
+                        }
                     </div>
 
                     <CheckInOutModal

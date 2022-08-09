@@ -7,6 +7,7 @@ const initiate = {
     errorReason: "",
     errorTask: "",
     userTasks: [],
+    userTaskLoading: true,
     totalItems: 0,
     taskList: [],
     modalOpen: false,
@@ -25,6 +26,7 @@ const HomeReducer = (state = initiate, action) => {
                 ...state,
                 userTasks: action.payload.userTasks,
                 totalItems: action.payload.totalItems,
+                userTaskLoading: false,
             };
         case CHANGE_REASON:
             return {
