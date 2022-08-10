@@ -24,11 +24,8 @@ const HttpPost = async (url, data) => {
               default:
                 break;
             }
-            console.log('sini');
-            console.log(res.data);
         })
         .catch((error) => {
-            console.log(error);
             throw error;
         });
 };
@@ -46,7 +43,6 @@ const HttpGet = async (url) => {
         return res;
       })
       .catch((error) => {
-        console.log(error);
         throw error;
       });
   };
