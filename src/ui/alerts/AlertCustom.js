@@ -6,6 +6,9 @@ const CustomAlert = ({message, title, toggle, open}) => {
             <p className="mb-0">
                 {message}
             </p>
+            {/* <p className="mb-0">
+                {message}
+            </p> */}
         </Alert>
     )
 }
