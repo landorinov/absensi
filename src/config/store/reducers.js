@@ -5,6 +5,7 @@ import RegisterReducer from '../../modules/auth/Register/reducer';
 import HomeReducer from '../../modules/main/Home/reducer';
 import HistoryReducer from '../../modules/user/History/reducer';
 import ForgotReducer from '../../modules/auth/ForgotPassword/reducer';
+import AbsenceReducer from '../../modules/absensi/Home/reducer';
 
 const combine = combineReducers({
     global: GlobalReducer,
@@ -12,7 +13,8 @@ const combine = combineReducers({
     RegisterReducer,
     HomeReducer,
     HistoryReducer,
-    ForgotReducer
+    ForgotReducer,
+    AbsenceReducer
 })
 
 export { combine }

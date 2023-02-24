@@ -2,7 +2,9 @@ import Axios from 'axios';
 
 const httpClient = Axios.create();
 
-let apiUrl = 'https://project-testv01.herokuapp.com/';
+// let apiUrl = 'https://project-testv01.herokuapp.com/';
+// let apiUrl = 'https://test123-production.up.railway.app/';
+let apiUrl = 'http://36.94.216.133:8081/';
 
 const HttpPost = async (url, data) => {
     const accessToken = localStorage.getItem('accessToken');

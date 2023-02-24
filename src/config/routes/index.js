@@ -6,6 +6,7 @@ import Loadable from "../../ui/loader/loadable";
 const Home = Loadable(lazy(() => import('../../modules/main/Home')));
 const UserDetail = Loadable(lazy(() => import('../../modules/user/Detail')));
 const History = Loadable(lazy(() => import('../../modules/user/History')));
+const Absensi = Loadable(lazy(() => import('../../modules/absensi/Home')));
 
 // Layout
 const BlankLayout = Loadable(lazy(() => import('../../ui/layouts/BlankLayout')));
@@ -30,6 +31,14 @@ const appRoute = [
         children: [
             { path: 'detail', element: <UserDetail /> },
             { path: 'history', element: <History /> }
+        ],
+    },
+    {
+        path: 'absensi',
+        element: <FullLayout />,
+        children: [
+            // { path: 'detail', element: <UserDetail /> },
+            { path: 'home', element: <Absensi /> }
         ],
     },
     {

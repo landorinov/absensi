@@ -49,8 +49,11 @@ function Header() {
                             <Nav className="justify-content-end flex-grow-1 pe-3 py-3" style={{ cursor: "pointer" }} onClick={() => {setOpenSideBar(false); navigate('/') }}>
                                 Home
                             </Nav>
-                            <Nav className="justify-content-end flex-grow-1 pe-3" style={{ cursor: "pointer" }} onClick={() => {setOpenSideBar(false); navigate('/users/history') }}>
+                            <Nav className="justify-content-end flex-grow-1 pe-3 py-3" style={{ cursor: "pointer" }} onClick={() => {setOpenSideBar(false); navigate('/users/history') }}>
                                 Absensi History
+                            </Nav>
+                            <Nav className="justify-content-end flex-grow-1 pe-3 py-3" style={{ cursor: "pointer" }} onClick={() => {setOpenSideBar(false); navigate('/absensi/home') }}>
+                                Absensi History (Table)
                             </Nav>
                         </Offcanvas.Body>
                         </Navbar.Offcanvas> : null
