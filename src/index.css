@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.dd-menu-custom {
+  position: static !important;
+  transform: translate(0px, 10px) !important;
+}
