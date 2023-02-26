@@ -1,0 +1,2 @@
+export const INITIAL_STATE = "INITIAL_STATE";
+export const GET_USER_ABSESNCES = "GET_USER_ABSESNCES";

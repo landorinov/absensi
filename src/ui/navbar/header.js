@@ -69,7 +69,7 @@ function Header() {
                                     <DropdownMenu className='dd-menu-custom'>
                                         {/* <DropdownItem header>Header</DropdownItem> */}
                                         {/* <DropdownItem disabled>Action</DropdownItem> */}
-                                        <DropdownItem>Employee</DropdownItem>
+                                        <DropdownItem onClick={() => { setOpenSideBar(false); navigate('/lms/employee') }}>Employee</DropdownItem>
                                         <DropdownItem divider />
                                         <DropdownItem>Company</DropdownItem>
                                         <DropdownItem divider />
